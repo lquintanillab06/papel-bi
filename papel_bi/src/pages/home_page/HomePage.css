@@ -1,0 +1,48 @@
+.contenedor-home {
+    width: 100vw;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.contenedor-imagen {
+    width: 40vw;
+    display: flex;
+    justify-content: center;
+    height: 45vh;
+}
+
+.imagen-bi {
+    width: 100%;
+    border-radius: 50px;
+}
+
+.contenedor-titulo {
+    color: #1A76D2;
+    width: 100vw;
+    height: 10vh;
+    text-align: center;
+}
+
+.contenedor-titulo h3 {
+    font-size: 2rem;
+}
+
+.contenedor-modulos {
+    width: 100vw;
+    height: 30vw;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.link-modulos {
+    width: 10vw;
+    height: 20vh;
+    text-decoration: none;
+    color: #1A76D2;
+}
