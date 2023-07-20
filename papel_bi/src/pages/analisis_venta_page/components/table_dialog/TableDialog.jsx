@@ -16,6 +16,7 @@ import Logo from '../../../../images/logo3.png';
 import axios from 'axios'
 
 import TableDetailVentas from './TableDetailVentas';
+import { apiUrl } from '../../../../conf/axiosInstance';
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -36,7 +37,7 @@ const TableDialog = ({open,setOpen,parametrosTable,value}) => {
         setLoading(true)
         const datos = await axios({
            method: 'post',
-           url: 'http://10.10.1.85:8000/ventas/ventas_dimension/',
+           url: `${apiUrl.url}ventas/ventas_dimension/`,
            data: body
          });
        setData(datos.data.data)
@@ -56,7 +57,7 @@ const TableDialog = ({open,setOpen,parametrosTable,value}) => {
     }, [open]);
 
     return (
-        <div>
+    
             <Dialog
                 fullScreen
                 open={open}
@@ -76,15 +77,15 @@ const TableDialog = ({open,setOpen,parametrosTable,value}) => {
                     onClick={handleClose}
                     aria-label="close"
                     >
-                    <CloseIcon />
-                    </IconButton>
+                    <CloseIcon  sx={{fontSize:25}} />
+                    </IconButton >
                 </Toolbar>
                 </AppBar>
 
                 <TableDetailVentas datos={data} loading={loading}/>
                 
             </Dialog>
-        </div>
+        
             
         
     );

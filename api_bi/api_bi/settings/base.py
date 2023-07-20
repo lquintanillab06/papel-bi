@@ -60,6 +60,10 @@ THIRD_PART_APPS = [
 LOCAL_APPS = [
     'applications.analisis_ventas',
     'applications.inventario_costeado',
+    'applications.inventario_capas',
+    'applications.core',
+    'applications.proyeccion_costo',
+    'applications.proyeccion_inventario',
 ]
 
 

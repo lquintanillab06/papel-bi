@@ -23,13 +23,12 @@ const HomePage = () => {
                 <Link to={"/analisis_venta"} className='link-modulos'>
                     <CardMaterialIcon titulo={'Analisis Ventas'}></CardMaterialIcon>
                 </Link>
-                <Link to={"/analisis_venta"} className='link-modulos'>
+                <Link to={"/proyeccion_costo"} className='link-modulos'>
                     <CardMaterialIcon titulo={'Analisis Costo'}></CardMaterialIcon>
                 </Link>
-                <Link to={"/analisis_venta"} className='link-modulos'>
-                    <CardMaterialIcon titulo={'Inventario Capas'}></CardMaterialIcon>
+                <Link to={"/proyeccion_inventario"} className='link-modulos'>
+                    <CardMaterialIcon titulo={'Proyeccion Inventario'}></CardMaterialIcon>
                 </Link>
-             
             </div>
         </div>
     );

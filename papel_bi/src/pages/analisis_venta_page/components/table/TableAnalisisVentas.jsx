@@ -16,6 +16,7 @@ import axios from 'axios';
 import TableDialog from '../table_dialog/TableDialog';
 import {formatAsPercentage} from '../../../../helpers/number_utils';
 import { MRT_Localization_ES } from 'material-react-table/locales/es';
+import { apiUrl } from '../../../../conf/axiosInstance';
 
 
 const ContenedorTable = styled.div`
@@ -134,21 +135,6 @@ const dimensionesSelector = [
             maximumFractionDigits: 2,
           })) 
           },
-          { accessorKey: 'porcentaje_utilidad',
-           header: '% Utilidad' ,
-           Cell: ({ cell }) => (
-            <Box
-              component="span"
-              sx={(theme) => ({
-                color:
-                  cell.getValue() < 0
-                    && theme.palette.error.dark,
-              })}
-            >
-              {formatAsPercentage(cell.getValue())}
-            </Box>
-          )
-          },
           { accessorKey: 'utilidad',
            header: 'Utilidad',
           Cell: ({ cell }) => (
@@ -169,6 +155,21 @@ const dimensionesSelector = [
             </Box>
           )
          },
+         { accessorKey: 'porcentaje_utilidad',
+         header: '% Utilidad' ,
+         Cell: ({ cell }) => (
+          <Box
+            component="span"
+            sx={(theme) => ({
+              color:
+                cell.getValue() < 0
+                  && theme.palette.error.dark,
+            })}
+          >
+            {formatAsPercentage(cell.getValue())}
+          </Box>
+        )
+        },
           { accessorKey: 'porc_part_ut',
            header: 'Part Utilidad',
            Cell: ({ cell }) => (
@@ -217,7 +218,7 @@ const dimensionesSelector = [
         setLoading(true)
          const datos = await axios({
             method: 'post',
-            url: 'http://10.10.1.85:8000/ventas/analisis_venta_dinamico/',
+            url: `${apiUrl.url}ventas/analisis_venta_dinamico/`,
             data: parametrosTable
           });
         setData(datos.data.data)
@@ -262,7 +263,7 @@ const dimensionesSelector = [
                     <ContenedorTitle>
                       <Box >
                           <Typography
-                              variant="h6"
+                              variant="h4"
                               component="div"
                               sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
                               >

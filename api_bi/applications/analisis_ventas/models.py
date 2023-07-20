@@ -1,5 +1,6 @@
 from django.db import models
 from .managers.analisis_venta_manager import AnalisisVentaManager
+import uuid
 
 # Create your models here.
 
@@ -68,5 +69,8 @@ class SobrePrecioImportacion(models.Model):
     class Meta:
         managed = True
         db_table = 'sobreprecio_importacion'
+
+
+
 
 

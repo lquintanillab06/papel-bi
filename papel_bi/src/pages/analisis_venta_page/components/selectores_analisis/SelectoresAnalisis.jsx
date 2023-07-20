@@ -17,7 +17,7 @@ import './SelectoresAnalisis.css'
 
 const cardSelectorsStyles = {
 
-    width:'90%',
+    width:'100%',
     height:'50%',
     backgroundColor: 'light-gray'
 
@@ -25,7 +25,7 @@ const cardSelectorsStyles = {
 
 const cardStyles = {
 
-    width:'90%',
+    width:'100%',
     height:'45%',
     backgroundColor: 'light-gray'
 

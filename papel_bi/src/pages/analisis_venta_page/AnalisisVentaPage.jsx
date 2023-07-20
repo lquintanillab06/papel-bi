@@ -3,6 +3,7 @@ import axios from 'axios'
 import styled from "styled-components";
 import TableAnalisisVentas from './components/table/TableAnalisisVentas';
 import SelectoresAnalisis from './components/selectores_analisis/SelectoresAnalisis';
+import { apiUrl } from '../../conf/axiosInstance';
 
 
 const Contenedor = styled.div`
@@ -45,7 +46,7 @@ const AnalisisVentaPage = () => {
         setDimensiones([])
          const datos = await axios({
             method: 'post',
-            url: 'http://10.10.1.85:8000/ventas/analisis_venta_dinamico/',
+            url: `${apiUrl.url}ventas/analisis_venta_dinamico/`,
             data: parametros
           });
         setData(datos.data.data)

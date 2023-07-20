@@ -10,6 +10,19 @@ export function getLastFiveYears(){
     return [currentYear, currentYear_1,currentYear_2,currentYear_3,currentYear_4]
 }
 
+export function getLastNYears(minusYears){
+    const currentYear = new Date().getFullYear()
+    const minYear = currentYear - minusYears
+
+    years = []
+    
+    for( year = currentYear ; i>= minYear; year--){
+        years.push(year)
+    }
+
+    
+}
+
 export function getCurrentYear(){
     return new Date().getFullYear()
 }

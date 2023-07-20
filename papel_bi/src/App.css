@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+:root {
+    /*--primario: #394859;*/
+    /*--primario: #e80033;*/
+    --primario: #1A76D2;
+    --accent: #C6CED3;
+    --accent1: #1A76D2;
+    --accent2: #007891;
+    --accent3: #55B7D3;
+    --accent4: #1A76D2;
+    /* --accent4: #F2142B; */
+    --light: #F2F3F5;
+    --red: #EC5252;
+    --text: #767C7D;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+}
+
+html {
+    font-size: 62.5%;
+}

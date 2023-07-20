@@ -5,9 +5,10 @@ import styled from "styled-components";
 
 const ContenedorOutlet = styled.div`
  display: fixed;
- margin-top: 10vh;
  width:100vw;
- height:85vh;
+ height:90vh;
+ margin: 10vh 0 0 0;
+ padding:0;
 `;
 
 

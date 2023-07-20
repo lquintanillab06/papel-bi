@@ -20,7 +20,7 @@
 }
 
 .contenedor-titulo {
-    color: #1A76D2;
+    color: var(--accent4);
     width: 100vw;
     height: 10vh;
     text-align: center;
@@ -44,5 +44,5 @@
     width: 10vw;
     height: 20vh;
     text-decoration: none;
-    color: #1A76D2;
+    color: var(--accent4);
 }
