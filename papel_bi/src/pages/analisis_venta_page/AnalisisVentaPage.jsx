@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useReducer, useState} from 'react';
 import axios from 'axios'
 import styled from "styled-components";
 import TableAnalisisVentas from './components/table/TableAnalisisVentas';
 import SelectoresAnalisis from './components/selectores_analisis/SelectoresAnalisis';
 import { apiUrl } from '../../conf/axiosInstance';
-
+import { initialBI,biReducer } from '../../store/biReducer';
 
 const Contenedor = styled.div`
     display: flex;
@@ -14,6 +14,11 @@ const Contenedor = styled.div`
 `;
 
 const AnalisisVentaPage = () => {
+
+    //const [biState,dispatch] = useReducer(biReducer,initialBI)
+
+
+
 
     const [data, setData] = useState([]);
 
@@ -56,7 +61,18 @@ const AnalisisVentaPage = () => {
         setDimensiones([parametros.subdimension])
     } 
 
+   /*  const handleButton = () => {
+        const action = {
+            type: '[BI] Change Periodo',
+            payload: "New Periodo"
+        }
+
+        dispatch(action)
+
+    } */
+
     return (
+        <>
         <Contenedor>
             <SelectoresAnalisis 
                 setParametros={setParametros} 
@@ -76,6 +92,7 @@ const AnalisisVentaPage = () => {
                 setTotales= {setTotales}
             />  
         </Contenedor>
+        </>
     );
 }
 

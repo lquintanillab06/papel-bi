@@ -9,7 +9,7 @@ import axios from 'axios';
 import { formatAsPercentage } from '../../../helpers/number_utils';
 import { MRT_Localization_ES } from 'material-react-table/locales/es';
 import { apiUrl } from '../../../conf/axiosInstance';
-
+import _ from "lodash";
 
 const ContenedorTable = styled.div`
  width:100%;
@@ -48,9 +48,10 @@ gap:5px
           //{ accessorKey: 'subdimension', header: 'Descripcion',size:200 },
           { accessorKey: 'subdimension',
           header: 'Descripcion',
-          size:250,
-          Cell: ({ row }) => (` ( ${row.original.subdimension} ) -- ${row.original.descripcion}`)
+          size:260,
+          Cell: ({ row }) => (row.original.subdimension)
         },
+        /* 
           { accessorKey: 'sum_importe',
            header: 'Importe' ,
            size:100,
@@ -137,9 +138,9 @@ gap:5px
            minimumFractionDigits: 0,
            maximumFractionDigits: 0,
          }))
-        },
+        },*/
           { accessorKey: 'utilidad',
-           header: 'Utilidad',
+           header: 'Margen',
            size:100,
           Cell: ({ cell }) => (
             <Box
@@ -158,9 +159,9 @@ gap:5px
               })}
             </Box>
           )
-         },
+         }, 
          { accessorKey: 'porcentaje_utilidad',
-         header: '% Utilidad' ,
+         header: '% Margen' ,
          size:100,
          Cell: ({ cell }) => (
           <Box
@@ -281,11 +282,14 @@ gap:5px
          { accessorKey: 'existencia_utilidad',
          header: 'Ex Utilidad',
          size:110,
-         Cell: ({ row }) => (((row.original.existencia * row.original.sum_precio_venta) - (row.original.existencia * row.original.sum_costo_venta)).toLocaleString?.('en-US', {
+         Cell: ({ row }) => ((row.original.existencia * row.original.sum_precio_venta) - (row.original.existencia * row.original.sum_costo_venta)).toLocaleString?.('en-US', {
            minimumFractionDigits: 0,
            maximumFractionDigits: 0,
-         }))
+         })
        },
+       { accessorKey: 'linea', header: 'Linea',size:200 },
+       { accessorKey: 'clase', header: 'Clase',size:200 },
+       { accessorKey: 'marca', header: 'Marca',size:200 },
           { accessorKey: 'ejercicio',
            enablePinning: false, header: 'Ejercicio', size:100
            },
@@ -357,6 +361,7 @@ gap:5px
                               variant="h4"
                               component="div"
                               sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+                              color={'error'}
                               >
                               Proyeccion Inventario
                           </Typography>
@@ -378,6 +383,7 @@ gap:5px
                   }}
                   muiTableContainerProps={{ sx: { maxHeight: '80vh' , minHeight: '80vh'} }}
                   localization={MRT_Localization_ES}
+                  enableGrouping
             /> 
              
         </ContenedorTable>

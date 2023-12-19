@@ -3,6 +3,11 @@ import { Outlet } from 'react-router-dom';
 import PrincipalBar from '../components/layout/PrincipalBar';
 import styled from "styled-components";
 
+import Drawer from '@mui/material/Drawer';
+
+
+
+
 const ContenedorOutlet = styled.div`
  display: fixed;
  width:100vw;
@@ -13,6 +18,8 @@ const ContenedorOutlet = styled.div`
 
 
 const MainLayout = () => {
+
+
     return (
         <div>
             <PrincipalBar />

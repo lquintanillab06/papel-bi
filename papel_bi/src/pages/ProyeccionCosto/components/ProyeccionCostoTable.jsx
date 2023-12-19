@@ -16,6 +16,7 @@ import axios from 'axios';
 import { formatAsPercentage } from '../../../helpers/number_utils';
 import { MRT_Localization_ES } from 'material-react-table/locales/es';
 import { apiUrl } from '../../../conf/axiosInstance';
+/* import TableDialog from '../../analisis_venta_page/components/table_dialog/TableDialog'; */
 
 
 const ContenedorTable = styled.div`
@@ -26,7 +27,6 @@ const ContenedorTable = styled.div`
 const ContenedorHeader = styled.div`
  width:100%;
  height:100%;
-
  display:flex;
  justify-content: space-between;
 `;
@@ -54,7 +54,7 @@ const dimensionesSelector = [
 ]
 
  const ProyeccionCostoTable = ({datos,setData,loading,setLoading,parametrosTable,setParametrosTable, dimensiones,
-                                 setDimensiones,setTotales}) => {
+                                 setDimensiones,setTotales,acumulado}) => {
 
       const [seleccionTable, setSeleccionTable] = useState();
       const [openDialog, setOpenDialog] = useState(false);
@@ -65,7 +65,8 @@ const dimensionesSelector = [
 
       const columns=useMemo(()=>[
           { accessorKey: 'subdimension', header: 'Descripcion',size:200 },
-          { 
+          { accessorKey: 'descripcion', header: 'Nombre',size:250 },
+          /* { 
             accessorKey: 'acciones',
             header: '→',
             maxSize:50,
@@ -79,7 +80,7 @@ const dimensionesSelector = [
                 </IconButton>
               </Box>
             )
-          },
+          }, */
           { accessorKey: 'sum_importe',
            header: 'Importe' ,
            size:100,
@@ -168,7 +169,7 @@ const dimensionesSelector = [
          }))
         },
           { accessorKey: 'utilidad',
-           header: 'Utilidad',
+           header: 'Margen',
            size:100,
           Cell: ({ cell }) => (
             <Box
@@ -189,7 +190,7 @@ const dimensionesSelector = [
           )
          },
          { accessorKey: 'porcentaje_utilidad',
-         header: '% Utilidad' ,
+         header: '% Margen' ,
          size:100,
          Cell: ({ cell }) => (
           <Box
@@ -262,23 +263,39 @@ const dimensionesSelector = [
       }
 
       const ejecutar = ()=>{
-        console.log(parametrosTable)
+        // console.log(parametrosTable)
         if(parametrosTable.ejercicio  && parametrosTable.mes && parametrosTable.subdimension){
-          getData()
+          if(!acumulado){
+            getData()
+          }else{
+            getDataAcumulado()
+          }
         }
       }
 
       const getData = async() =>{
-        setLoading(true)
-         const datos = await axios({
+          setLoading(true)
+          const datos = await axios({
             method: 'post',
             url: `${apiUrl.url}costo/proyeccion_costo/`,
             data: parametrosTable
           });
-        setData(datos.data.data)
-        setTotales(datos.data.totales)
-        setLoading(false)
+          setData(datos.data.data)
+          setTotales(datos.data.totales)
+          setLoading(false)    
     } 
+
+    const getDataAcumulado = async() =>{
+      setLoading(true)
+      const datos = await axios({
+        method: 'post',
+        url: `${apiUrl.url}costo/proyeccion_costo_anual/`,
+        data: parametrosTable
+      });
+      setData(datos.data.data)
+      setTotales(datos.data.totales)
+      setLoading(false)    
+} 
 
     const openTableDialog = (dimension) =>{
         setOpenDialog(true) 
@@ -290,6 +307,7 @@ const dimensionesSelector = [
            
 
           <ContenedorTable>
+             {/* <TableDialog open={openDialog} setOpen={setOpenDialog} parametrosTable= {parametrosTable} value = {valueQuery}/> */}
             <MaterialReactTable
                 columns={columns}
                 data={datos}
@@ -298,7 +316,8 @@ const dimensionesSelector = [
                 enableGlobalFilter={false} 
                 enablePinning
                 initialState={{ 
-                  columnPinning: { left: ['subdimension'] },
+                  columnVisibility:{subdimension:false},
+                  columnPinning: { left: ['descripcion'] },
                   density: 'compact',
                    size:'small',
                    
@@ -322,8 +341,9 @@ const dimensionesSelector = [
                               variant="h4"
                               component="div"
                               sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+                              color={'#1A76D2'}
                               >
-                              Analisis Costo
+                              Analisis Costo de Venta
                           </Typography>
                       </Box>
                       </ContenedorTitle>
@@ -354,6 +374,7 @@ const dimensionesSelector = [
                             onClick={ejecutar} 
                             variant="contained"
                             size="small"
+                          color='primary'
                         
                           >
                             <ArrowForwardIcon />

@@ -9,43 +9,54 @@ import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
+import HomeIcon from '@mui/icons-material/Home';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Logo from '../../images/logo3.png';
 
 
 
-const drawerWidth = 240;
-//const navItems = ['Home', 'About', 'Contact'];
-const navItems = [];
 
+
+
+const drawerWidth = 270;
+//const navItems = ['Home', 'About', 'Contact'];
+const navItems = ['Analisis Costo de Venta','Proyeccion Inventario','Analisis Venta', 'Inicio'];
+const navItems2 = [
+  {label:"Analisis Costo de Venta",path:"/proyeccion_costo"},
+  {label:"Proyeccion Inventario",path:"/proyeccion_inventario"},
+  {label:"Analsis Venta",path:"/analisis_venta"},
+  {label:"Comparativo Ventas",path:"/comparativo"},
+  {label:"Inicio",path:"/"},
+]
 const PrincipalBar = (props) => {
 
-    const { window } = props;
-    const [mobileOpen, setMobileOpen] = React.useState(false);
-  
-    const handleDrawerToggle = () => {
-      setMobileOpen((prevState) => !prevState);
-    };
-  
+   const [openDrawer,setOpenDrawer] = React.useState(false)
+   const location = useLocation()
+
+    const hadleOpenDrawer = () =>{
+        setOpenDrawer(!openDrawer)
+    }
+
     const drawer = (
-      <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-        <img src={Logo} alt="logo" width={"100"} height={"50"}/> 
-        <Typography variant="h6" sx={{ my: 2 }}>
-          Papel s.a.
-        </Typography>
+      <Box onClick={hadleOpenDrawer} sx={{ textAlign: 'center' }}>
+        <Toolbar sx={{backgroundColor:"#1a76d2"}}>
+            <img src={Logo} alt="logo" width={"120"} height={"50"}/> 
+        </Toolbar>
+        
         <Divider />
         <List>
-          {navItems.map((item) => (
-            <ListItem key={item} disablePadding>
-              <ListItemButton sx={{ textAlign: 'center' }}>
-                <ListItemText primary={item} />
-              </ListItemButton>
-            </ListItem>
+          {navItems2.map((item) => (
+
+              <Link to={item.path} key={item.path}   className='link-modulos'>
+                 <ListItem key={item} disablePadding>
+                    <ListItemButton>
+                      <Typography sx={{fontSize:"1.5rem",width:"100%"}}>{item.label}</Typography>
+                    </ListItemButton>
+                </ListItem>
+              </Link>
           ))}
         </List>
       </Box>
@@ -55,50 +66,50 @@ const PrincipalBar = (props) => {
     return (
     <Box sx={{ display: 'flex' }}>
     <CssBaseline />
-    <AppBar component="nav" >
-      <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="start"
-          onClick={handleDrawerToggle}
-          sx={{ mr: 2, display: { sm: 'none' } }}
-        >
-          <MenuIcon />
-        </IconButton>
+    <AppBar component="nav" position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }} >
+      <Toolbar sx={{display:'flex', justifyContent:'space-between'}}>
+      
         <Link to={"/"}>
           <img src={Logo} alt="logo" width={"120"} height={"50"}/> 
-        </Link>
-        
-       {/*  <Typography
-          variant="h6"
-          component="div"
-          sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-        >
-          Papel s.a.
-        </Typography> */}
-        <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+        </Link>    
+        {/* <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
           {navItems.map((item) => (
             <Button key={item} sx={{ color: '#fff' }}>
               {item}
             </Button>
           ))}
-        </Box>
+        </Box> */}
+       <Box  sx={{display: location.pathname == "/" ? "none":" block"}} >
+          <Link to={"/"}>
+            <IconButton
+                color="#FFF"
+                aria-label="open drawer"
+                edge="start"
+                sx={{ mr: 2, }}
+              >
+                <HomeIcon   sx={{color:"#FFF", fontSize:23}}/>
+              </IconButton>
+          </Link>
+          <IconButton
+              color="#FFF"
+              aria-label="open drawer"
+              edge="start"
+              onClick={hadleOpenDrawer}
+              sx={{ mr: 2, }}
+            >
+              <MenuIcon   sx={{color:"#FFF", fontSize:23}}/>
+            </IconButton>
+       </Box>
       </Toolbar>
     </AppBar>
     <Box component="nav">
       <Drawer
-        container={container}
-        variant="temporary"
-        open={mobileOpen}
-        onClose={handleDrawerToggle}
-        ModalProps={{
-          keepMounted: true, // Better open performance on mobile.
-        }}
+        open={openDrawer}
+      onClose={hadleOpenDrawer} 
         sx={{
-          display: { xs: 'block', sm: 'none' },
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth,  zIndex: (theme) => theme.zIndex.appBar + 5  },
         }}
+       
       >
         {drawer}
       </Drawer>

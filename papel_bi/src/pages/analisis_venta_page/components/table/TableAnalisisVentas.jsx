@@ -65,7 +65,8 @@ const dimensionesSelector = [
     
 
       const columns=useMemo(()=>[
-          { accessorKey: 'subdimension', header: 'Descripcion',size:200 },
+          { accessorKey: 'subdimension', header: 'Descripcion',size:250},
+          { accessorKey: 'descripcion', header: 'Nombre',size:250},
           { 
             accessorKey: 'acciones',
             header: '→',
@@ -79,7 +80,8 @@ const dimensionesSelector = [
                     <DynamicFeedIcon />
                 </IconButton>
               </Box>
-            )
+            ),
+      
           },
           { accessorKey: 'sum_importe',
            header: 'Importe' ,
@@ -189,26 +191,27 @@ const dimensionesSelector = [
            enablePinning: false, header: 'Ejercicio'
            },
           { accessorKey: 'mes', enablePinning: false, header: 'Mes'},
+       
   
       ],
       [],) 
 
       const handleChangeSelector = (e) =>{
-          console.log(e.target.value)
           setSeleccionTable(e.target.value)
           setParametrosTable({...parametrosTable,subdimension:e.target.value})
       }
 
       const handleDoubleClick = (row) =>{
-        console.log("haciendo doble click")
-        console.info(row.original.subdimension);
         const {subdimension} = parametrosTable
-        setParametrosTable({...parametrosTable,[subdimension]:row.original.subdimension,subdimension:seleccionTable})
-        setDimensiones([...dimensiones, row.original.subdimension ])
+        const found = dimensiones.find((dim)=> dim == row.original.subdimension)
+        if(!found){
+          setParametrosTable({...parametrosTable,[subdimension]:row.original.subdimension,subdimension:seleccionTable})
+          setDimensiones([...dimensiones, row.original.subdimension ])
+        }
+        
       }
 
       const ejecutar = ()=>{
-        console.log(parametrosTable)
         if(parametrosTable.ejercicio  && parametrosTable.mes && parametrosTable.subdimension){
           getData()
         }
@@ -243,7 +246,8 @@ const dimensionesSelector = [
                 enableGlobalFilter={false} 
                 enablePinning
                 initialState={{ 
-                  columnPinning: { left: ['subdimension'] },
+                  columnPinning: { left: ['descripcion'] },
+                  columnVisibility:{subdimension:false},
                   density: 'compact',
                    size:'small'
                 }} 
@@ -266,6 +270,7 @@ const dimensionesSelector = [
                               variant="h4"
                               component="div"
                               sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+                              color={'secondary'}
                               >
                               Analisis Ventas  
                           </Typography>
@@ -298,6 +303,7 @@ const dimensionesSelector = [
                             onClick={ejecutar} 
                             variant="contained"
                             size="small"
+                            color='secondary'
                           >
                             <ArrowForwardIcon />
                           </Button>

@@ -13,6 +13,8 @@ const ProyeccionInventario = () => {
 
     const [loading, setLoading] = useState(false)
 
+    const [acumulado, setAcumulado] = useState(false);
+
     const [parametros, setParametros] = useState({
         ejercicio: null,
         mes: null,
@@ -38,6 +40,21 @@ const ProyeccionInventario = () => {
         setParametrosTable(parametros)
     } 
 
+    const getDataAcumulado = async() =>{
+        setLoading(true)
+         const datos = await axios({
+            method: 'post',
+            url: `${apiUrl.url}inventario/proyeccion_inventario_acumulado/`,
+            data: parametros
+          });
+        setData(datos.data.data)
+        setTotales(datos.data.totales)
+        setLoading(false)
+        setParametrosTable(parametros)
+    } 
+
+    
+
 
 
     return (
@@ -48,6 +65,9 @@ const ProyeccionInventario = () => {
                     parametros={parametros} 
                     getData={getData}
                     totales ={totales}
+                    getDataAcumulado = {getDataAcumulado}
+                    acumulado={acumulado}
+                    setAcumulado={setAcumulado}
                 />
             </aside>
             <main className='inventario-content'>
@@ -59,6 +79,7 @@ const ProyeccionInventario = () => {
                 parametrosTable={parametrosTable} 
                 setParametrosTable={setParametrosTable} 
                 setTotales= {setTotales} 
+                
                 />
             </main>
 

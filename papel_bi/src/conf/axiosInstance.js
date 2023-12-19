@@ -8,5 +8,6 @@ export const axiosInstance = axios.create({
 
 
   export const apiUrl = {
+    //url: "http://10.10.1.121:8000/",
     url: "http://localhost:8000/",
   }

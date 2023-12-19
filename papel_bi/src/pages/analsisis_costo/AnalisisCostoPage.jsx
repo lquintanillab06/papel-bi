@@ -9,9 +9,7 @@ const AnalisisCostoPage = () => {
     return (
         <div>
             <Wip message= "Analisis Costo" />
-         
-
-
+        
         </div>
     );
 }

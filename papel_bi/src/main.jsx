@@ -1,81 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import {createBrowserRouter, RouterProvider} from 'react-router-dom'
-import App from './App.jsx'
-import MainLayout from './layout/MainLayout'
-import AnalisisVentaPage from './pages//analisis_venta_page/AnalisisVentaPage'
-import HomePage from './pages/home_page/HomePage'
-import InventarioCapasPage from './pages/inventario_capas/InventarioCapasPage'
-import AnalisisCostoPage from './pages/analsisis_costo/AnalisisCostoPage'
+import { RouterProvider} from 'react-router-dom'
+import { router } from './Router'
 
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
-import { useTheme } from 'styled-components'
-import ProviderBi from '../context/providerBi'
-import ProyeccionCosto from './pages/ProyeccionCosto/ProyeccionCosto'
-import ProyeccionInventario from './pages/proyeccion_inventario/ProyeccionInventario'
+import ProviderBi from './context/providerBi'
 
-
-
-
-
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <MainLayout/>,
-    children:[
-      { 
-        path: "",
-        element:<HomePage />,
-      },
-    ]
-  },
-  {
-    path: "/analisis_venta",
-    element: <MainLayout/>,
-    children:[
-      { 
-        path: "",
-        element:<AnalisisVentaPage />,
-      },
-    ]
-  },
-  {
-    path: "/inventarios_capas",
-    element: <MainLayout/>,
-    children:[
-      { 
-        path: "",
-        element:<InventarioCapasPage />,
-      },
-    ]
-  },
-  {
-    path: "/proyeccion_costo",
-    element: <MainLayout/>,
-    children:[
-      { 
-        path: "",
-        element:<ProyeccionCosto />,
-      },
-    ]
-  },
-  {
-    path: "/proyeccion_inventario",
-    element: <MainLayout/>,
-    children:[
-      { 
-        path: "",
-        element:<ProyeccionInventario />,
-      },
-    ]
-  }
-])
 
 
 export const themeOptions = {
   palette: {
+
     common:{
       arcRed: 'yellow'
     },

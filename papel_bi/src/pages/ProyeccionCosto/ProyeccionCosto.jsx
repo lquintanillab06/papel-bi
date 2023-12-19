@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios'
 import ProyeccionCostoTable from './components/ProyeccionCostoTable';
-import SelectoresAnalisis from '../analisis_venta_page/components/selectores_analisis/SelectoresAnalisis';
+import SelectoresAnalisis from './components/selectores_analisis/SelectoresAnalisis';
 import { apiUrl } from '../../conf/axiosInstance';
 
 import "./ProyeccionCosto.css"
@@ -13,6 +13,8 @@ const ProyeccionCosto = () => {
     const [loading, setLoading] = useState(false)
 
     const [dimensiones, setDimensiones] = useState();
+
+    const [acumulado, setAcumulado] = useState(false);
 
 
 
@@ -49,6 +51,22 @@ const ProyeccionCosto = () => {
         setDimensiones([parametros.subdimension])
     } 
 
+    const getDataAcumulado = async() =>{
+        setLoading(true)
+        setDimensiones([])
+         const datos = await axios({
+            method: 'post',
+            url: `${apiUrl.url}costo/proyeccion_costo_anual/`,
+            data: parametros
+          });
+        console.log(datos.data.data)
+        setData(datos.data.data)
+        setTotales(datos.data.totales)
+        setLoading(false)
+        setParametrosTable(parametros)
+        setDimensiones([parametros.subdimension])
+    } 
+
 
 
     return (
@@ -59,6 +77,9 @@ const ProyeccionCosto = () => {
                     parametros={parametros} 
                     getData={getData}
                     totales ={totales}
+                    getDataAcumulado = {getDataAcumulado}
+                    acumulado={acumulado}
+                    setAcumulado={setAcumulado}
                 />
             </aside>
             <main className='inventario-content'>
@@ -72,6 +93,8 @@ const ProyeccionCosto = () => {
                 dimensiones={dimensiones}
                 setDimensiones={setDimensiones}
                 setTotales= {setTotales} 
+                acumulado={acumulado}
+                setAcumulado={setAcumulado}
                 />
             </main>
 

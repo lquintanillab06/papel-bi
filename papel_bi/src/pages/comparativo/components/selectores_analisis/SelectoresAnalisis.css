@@ -1,0 +1,9 @@
+.contenedor_selectores_comparativo {
+    height: 100%;
+    width: 18%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    margin: 0 1rem 0 0;
+}

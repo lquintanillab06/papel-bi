@@ -11,7 +11,7 @@ const CardBackground = () => {
                 <p className="small">Card description with lots of great facts and interesting details.</p>
                 <div className="go-corner" href="#">
                 <div className="go-arrow">
-                    →
+                    
                 </div>
                 </div>
             </a>

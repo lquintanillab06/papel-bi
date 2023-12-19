@@ -22,7 +22,7 @@ const CardMaterialIcon = ({titulo, descripcion, icono, funcion}) => {
                     <h3>{titulo}</h3>
                     <p>{descripcion}</p>
                 </div>
-               <div className="card-md-img">
+               <div className="card-md-img_row">
                     →
                </div>
             </div>       

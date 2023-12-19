@@ -11,7 +11,7 @@ const CardBorder = () => {
                 
                 <div className="go-corner" href="#">
                 <div className="go-arrow">
-                    →
+                    
                 </div>
                 </div>
             </a>     

@@ -9,13 +9,16 @@ import Typography from '@mui/material/Typography';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import Select from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
 import {getLastFiveYears, getCurrentYear, getCurrentMonth, getMonths } from '../../../../helpers/date_utils'
 
 import './SelectoresAnalisis.css'
 
 
 const cardSelectorsStyles = {
+
     width:'100%',
     height:'50%',
     backgroundColor: 'light-gray'
@@ -23,6 +26,7 @@ const cardSelectorsStyles = {
 }
 
 const cardStyles = {
+
     width:'100%',
     height:'45%',
     backgroundColor: 'light-gray'
@@ -30,9 +34,9 @@ const cardStyles = {
 }
 
 
-const SelectoresAnalisis = ({setParametros, parametros, getData, totales}) => {
+const SelectoresAnalisis = ({setParametros, parametros, getData, getDataAcumulado, totales, acumulado, setAcumulado}) => {
 
-
+    console.log(totales);
 
     const [seleccion, setSeleccion] = useState({
         ejercicio: null,
@@ -41,6 +45,8 @@ const SelectoresAnalisis = ({setParametros, parametros, getData, totales}) => {
         nacional: null,
         origen: null
     });
+
+  
 
     const {mesActualKey,mesActual} = getCurrentMonth()
     const añoActual = getCurrentYear()
@@ -86,7 +92,12 @@ const SelectoresAnalisis = ({setParametros, parametros, getData, totales}) => {
 
     const ejecutar = () =>{
         if(parametros.ejercicio  && parametros.mes && parametros.subdimension){
-            getData() 
+            if(!acumulado){
+                getData() 
+            }else{
+                getDataAcumulado()
+            }
+            
         } 
     }
 
@@ -164,9 +175,16 @@ const SelectoresAnalisis = ({setParametros, parametros, getData, totales}) => {
                             {tipoProducto.map(tipoProducto => <MenuItem key={tipoProducto.key} value={tipoProducto.key}>{tipoProducto.tipoProducto}</MenuItem>)}
                         </Select>
                     </FormControl>
+                    <FormControlLabel 
+                        control={
+                        <Checkbox checked={acumulado} onChange={()=>{setAcumulado(!acumulado)}}  />
+                        }
+                        label={<Typography sx={{fontSize:"1.1rem"}}>Acumulado Anual</Typography>}
+                        sx={{ '& .MuiSvgIcon-root': { fontSize: 30 }}}
+                    />
                 </CardContent>
                 <CardActions>
-                    <Button onClick={ejecutar} variant="contained" color='secondary' fullWidth>Ejecutar</Button>
+                    <Button onClick={ejecutar} variant="contained" fullWidth>Ejecutar</Button>
                 </CardActions>
             </Card>
             <Card sx={cardStyles}>
