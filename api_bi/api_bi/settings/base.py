@@ -64,6 +64,7 @@ LOCAL_APPS = [
     'applications.core',
     'applications.proyeccion_costo',
     'applications.proyeccion_inventario',
+    'applications.reportes',
 ]
 
 

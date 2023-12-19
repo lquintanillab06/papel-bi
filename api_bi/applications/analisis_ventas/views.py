@@ -20,8 +20,7 @@ def analisis_venta(request):
 @api_view(['POST'])
 def analisis_venta_dinamico(request):
     print('loading ...')
-    print(request)
-    print(request.data)
+   
     subdimension = request.data.get('subdimension') 
     request.data.pop('subdimension')
     if request.data.get('nacional') == None:
@@ -29,9 +28,7 @@ def analisis_venta_dinamico(request):
 
     if not request.data.get('origen'):
         request.data.pop('origen')
-
-    print(request.data)
-
+        
     ventas, venta_neta , kilos, utilidad, costo_neto = AnalisisVentasDet.objects.analisis_venta_dinamico(subdimension,**request.data)
     
     if venta_neta:
